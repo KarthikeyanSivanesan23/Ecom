@@ -29,3 +29,5 @@ Thumbs.db
 
 # opencode local
 .opencode/
+.vercel
+.env*
