@@ -9,6 +9,9 @@ import router from './routes';
 
 const app = express();
 
+// Trust the proxy (Vercel/container ingress) so rate limiting and IP handling work.
+app.set('trust proxy', 1);
+
 app.use(helmet());
 app.use(cors({
   origin: config.frontendUrl,
