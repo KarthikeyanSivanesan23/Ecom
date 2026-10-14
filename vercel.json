@@ -9,8 +9,8 @@
     },
     "backend": {
       "root": "backend",
-      "buildCommand": "npm run db:generate",
-      "entrypoint": "src/server.ts"
+      "runtime": "container",
+      "entrypoint": "Dockerfile"
     }
   },
   "rewrites": [
