@@ -36,18 +36,21 @@ app.get('/api/health', (_req, res) => {
 
 app.use(errorHandler);
 
-const server = app.listen(config.port, () => {
-  console.log(`Server running on port ${config.port} in ${config.nodeEnv} mode`);
-});
-
-process.on('unhandledRejection', (err: Error) => {
-  console.error('Unhandled Rejection:', err.message);
-  server.close(() => process.exit(1));
-});
-
-process.on('uncaughtException', (err: Error) => {
-  console.error('Uncaught Exception:', err.message);
-  server.close(() => process.exit(1));
-});
-
 export default app;
+
+// Only start the HTTP listener when this module is run directly (local dev / node dist/server.js).
+if (require.main === module) {
+  const server = app.listen(config.port, () => {
+    console.log(`Server running on port ${config.port} in ${config.nodeEnv} mode`);
+  });
+
+  process.on('unhandledRejection', (err: Error) => {
+    console.error('Unhandled Rejection:', err.message);
+    server.close(() => process.exit(1));
+  });
+
+  process.on('uncaughtException', (err: Error) => {
+    console.error('Uncaught Exception:', err.message);
+    server.close(() => process.exit(1));
+  });
+}
